@@ -1,0 +1,314 @@
+openapi: 3.0.1
+info:
+  description: This is todo manager backend for coding tests.
+  title: Todo Manager API
+  version: 1.0.0
+servers:
+- url: /
+paths:
+  /users:
+    post:
+      description: Register a user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsersForReq'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersForRes'
+          description: successful users response
+  /users/{user_id}:
+    delete:
+      description: Remove a user
+      parameters:
+      - description: ID of fetch user.
+        explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersForRes'
+          description: successful users response
+    get:
+      description: Returns a user.
+      parameters:
+      - description: ID of fetch user.
+        explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersForRes'
+          description: successful users response
+    patch:
+      description: Change a user.
+      parameters:
+      - description: ID of fetch user.
+        explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsersForReq'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersForRes'
+          description: successful users response
+    post:
+      description: Register a user.
+      parameters:
+      - description: ID of fetch user.
+        explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object'
+        content:
+          application/json:
+            schema:
+              properties:
+                activationCode:
+                  type: string
+              type: object
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersForRes'
+          description: successful users response
+  /users/{user_id}/tasks:
+    get:
+      description: Returns tasks.
+      parameters:
+      - description: ID of fetch user.
+        explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TasksForRes'
+                type: array
+          description: successful tasks response
+    post:
+      description: Register a task.
+      parameters:
+      - description: ID of fetch user.
+        explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TasksForReq'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TasksForRes'
+          description: successful tasks response
+  /users/{user_id}/tasks/{task_id}:
+    delete:
+      description: Remove a task.
+      parameters:
+      - description: ID of fetch user.
+        explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of fetch user task.
+        explode: false
+        in: path
+        name: task_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: successful tasks response
+    get:
+      description: Returns a task.
+      parameters:
+      - description: ID of fetch user.
+        explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of fetch user task.
+        explode: false
+        in: path
+        name: task_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TasksForRes'
+          description: successful tasks response
+    patch:
+      description: Change a task.
+      parameters:
+      - description: ID of fetch user.
+        explode: false
+        in: path
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of fetch user task.
+        explode: false
+        in: path
+        name: task_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TasksForRes'
+          description: successful tasks response
+components:
+  requestBodies:
+    inline_object:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object'
+  schemas:
+    UsersForReq:
+      example:
+        emailAddress: foo@example.com
+        phoneNumber: 818000000000 (National Code + Phone Number)
+        name: Kawakami
+      properties:
+        name:
+          example: Kawakami
+          type: string
+        emailAddress:
+          example: foo@example.com
+          type: string
+        phoneNumber:
+          example: 818000000000 (National Code + Phone Number)
+          type: string
+      type: object
+    TasksForReq:
+      example:
+        checked: true
+        description: Send Email to Foo Company
+        title: Send Email
+      properties:
+        title:
+          example: Send Email
+          type: string
+        checked:
+          type: boolean
+        description:
+          example: Send Email to Foo Company
+          type: string
+      type: object
+    UsersForRes:
+      example:
+        emailAddress: foo@example.com
+        phoneNumber: 818000000000 (National Code + Phone Number)
+        name: Kawakami
+        id: id
+      properties:
+        id:
+          type: string
+        name:
+          example: Kawakami
+          type: string
+        emailAddress:
+          example: foo@example.com
+          type: string
+        phoneNumber:
+          example: 818000000000 (National Code + Phone Number)
+          type: string
+      type: object
+    TasksForRes:
+      example:
+        checked: true
+        description: Send Email to Foo Company
+        id: id
+        title: Send Email
+        settelementMillis: 1649141840
+      properties:
+        id:
+          type: string
+        title:
+          example: Send Email
+          type: string
+        checked:
+          type: boolean
+        description:
+          example: Send Email to Foo Company
+          type: string
+        settelementMillis:
+          example: 1649141840
+          type: integer
+      type: object
+    inline_object:
+      properties:
+        activationCode:
+          type: string
+      type: object

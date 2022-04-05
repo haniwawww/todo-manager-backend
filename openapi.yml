@@ -1,0 +1,260 @@
+openapi: 3.0.1
+
+info:
+  title: "Todo Manager API"
+  description: "This is todo manager backend for coding tests."
+  version: "1.0.0"
+
+paths:
+  /users:
+    post:
+      description: Register a user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsersForReq'
+      responses:
+        200:
+          description: successful users response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersForRes'
+  /users/{user_id}:
+    post:
+      description: Register a user.
+      parameters:
+        - name: user_id
+          in: path
+          description: ID of fetch user.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                activationCode:
+                  type: string
+      responses:
+        200:
+          description: successful users response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersForRes'
+    get:
+      description: Returns a user.
+      parameters:
+        - name: user_id
+          in: path
+          description: ID of fetch user.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful users response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersForRes'
+    patch:
+      description: Change a user.
+      parameters:
+        - name: user_id
+          in: path
+          description: ID of fetch user.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsersForReq'
+      responses:
+        200:
+          description: successful users response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersForRes'
+    delete:
+      description: Remove a user
+      parameters:
+        - name: user_id
+          in: path
+          description: ID of fetch user.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful users response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersForRes'
+  /users/{user_id}/tasks:
+    post:
+      description: Register a task.
+      parameters:
+        - name: user_id
+          in: path
+          description: ID of fetch user.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TasksForReq'
+      responses:
+        200:
+          description: successful tasks response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TasksForRes'
+    get:
+      description: Returns tasks.
+      parameters:
+        - name: user_id
+          in: path
+          description: ID of fetch user.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful tasks response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TasksForRes'
+  /users/{user_id}/tasks/{task_id}:
+    get:
+      description: Returns a task.
+      parameters:
+        - name: user_id
+          in: path
+          description: ID of fetch user.
+          required: true
+          schema:
+            type: string
+        - name: task_id
+          in: path
+          description: ID of fetch user task.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful tasks response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TasksForRes'
+    patch:
+      description: Change a task.
+      parameters:
+        - name: user_id
+          in: path
+          description: ID of fetch user.
+          required: true
+          schema:
+            type: string
+        - name: task_id
+          in: path
+          description: ID of fetch user task.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful tasks response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TasksForRes'
+    delete:
+      description: Remove a task.
+      parameters:
+        - name: user_id
+          in: path
+          description: ID of fetch user.
+          required: true
+          schema:
+            type: string
+        - name: task_id
+          in: path
+          description: ID of fetch user task.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful tasks response
+
+components:
+  schemas:
+    UsersForReq:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Kawakami
+        emailAddress:
+          type: string
+          example: foo@example.com
+        phoneNumber:
+          type: string
+          example: 818000000000 (National Code + Phone Number)
+    TasksForReq:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Send Email
+        checked:
+          type: boolean
+        description:
+          type: string
+          example: Send Email to Foo Company
+    UsersForRes:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          example: Kawakami
+        emailAddress:
+          type: string
+          example: foo@example.com
+        phoneNumber:
+          type: string
+          example: 818000000000 (National Code + Phone Number)
+    TasksForRes:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+          example: Send Email
+        checked:
+          type: boolean
+        description:
+          type: string
+          example: Send Email to Foo Company
+        settelementMillis:
+          type: integer
+          example: 1649141840
