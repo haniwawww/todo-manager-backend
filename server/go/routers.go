@@ -23,9 +23,9 @@ import (
 
 // A Route defines the parameters for an api endpoint
 type Route struct {
-	Name		string
-	Method	  string
-	Pattern	 string
+	Name        string
+	Method      string
+	Pattern     string
 	HandlerFunc http.HandlerFunc
 }
 
@@ -62,6 +62,9 @@ func NewRouter(routers ...Router) *mux.Router {
 // EncodeJSONResponse uses the json encoder to write an interface to the http response with an optional status code
 func EncodeJSONResponse(i interface{}, status *int, w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 	if status != nil {
 		w.WriteHeader(*status)
 	} else {

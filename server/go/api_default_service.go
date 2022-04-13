@@ -39,9 +39,9 @@ func (s *DefaultApiService) UsersPost(ctx context.Context, usersForReq UsersForR
 	//TODO: Uncomment the next line to return response Response(200, UsersForRes{}) or use other options such as http.Ok ...
 	//return Response(200, UsersForRes{}), nil
 
-	users.AddUser(user.GetInstance(user.TypeReqUser(usersForReq)))
+	res := users.AddUser(user.GetInstance(user.TypeReqUser(usersForReq)))
 
-	return Response(http.StatusOK, nil), nil
+	return Response(http.StatusOK, res), nil
 }
 
 // UsersUserIdDelete -
@@ -78,9 +78,9 @@ func (s *DefaultApiService) UsersUserIdPatch(ctx context.Context, userId string,
 	//TODO: Uncomment the next line to return response Response(200, UsersForRes{}) or use other options such as http.Ok ...
 	//return Response(200, UsersForRes{}), nil
 
-	users.UpdateUser(userId, user.GetInstance(user.TypeReqUser(usersForReq)))
+	res := users.UpdateUser(userId, user.GetInstance(user.TypeReqUser(usersForReq)))
 
-	return Response(http.StatusOK, nil), nil
+	return Response(http.StatusOK, res), nil
 }
 
 // UsersUserIdPost -
@@ -115,9 +115,9 @@ func (s *DefaultApiService) UsersUserIdTasksPost(ctx context.Context, userId str
 	//TODO: Uncomment the next line to return response Response(200, TasksForRes{}) or use other options such as http.Ok ...
 	//return Response(200, TasksForRes{}), nil
 
-	tasks.AddTask(task.GetInstance(userId, task.TypeReqTask(tasksForReq)))
+	res := tasks.AddTask(task.GetInstance(userId, task.TypeReqTask(tasksForReq)))
 
-	return Response(http.StatusOK, nil), nil
+	return Response(http.StatusOK, res), nil
 }
 
 // UsersUserIdTasksTaskIdDelete -

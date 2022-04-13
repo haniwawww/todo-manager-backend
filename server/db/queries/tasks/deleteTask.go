@@ -6,5 +6,5 @@ import (
 
 func DeleteTask(userId string, taskId string) {
 	var db = db.GetInstance()
-	db.QueryRow("delete from tasks where userId = $1 and taskId = $2", userId, taskId)
+	db.QueryRow("delete from tasks where userId = $1 and id = $2", userId, taskId)
 }

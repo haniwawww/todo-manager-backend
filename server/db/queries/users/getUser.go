@@ -3,12 +3,10 @@ package users
 import (
 	"github.com/GIT_USER_ID/GIT_REPO_ID/db"
 	"github.com/GIT_USER_ID/GIT_REPO_ID/entities/user"
-	"log"
 )
 
 func GetUser(userId string) user.TypeUser {
 	var db = db.GetInstance()
-	log.Print(userId)
 	row := db.QueryRow("select * from users where id = $1", userId)
 	var u user.TypeUser
 	row.Scan(&u.Id, &u.Email_address, &u.Phone_number, &u.Name)

@@ -115,6 +115,7 @@ func (c *DefaultApiController) Routes() Routes {
 
 // UsersPost -
 func (c *DefaultApiController) UsersPost(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	usersForReqParam := UsersForReq{}
 	d := json.NewDecoder(r.Body)
 	d.DisallowUnknownFields()
