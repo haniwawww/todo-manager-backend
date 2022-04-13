@@ -10,13 +10,17 @@
 package main
 
 import (
+	"github.com/aws/aws-lambda-go/lambda"
 	"log"
 	"net/http"
+	"os"
 
 	openapi "github.com/GIT_USER_ID/GIT_REPO_ID/go"
 )
 
-func main() {
+var region = os.Getenv("AWS_REGION")
+
+func functions() {
 	log.Printf("Server started")
 
 	DefaultApiService := openapi.NewDefaultApiService()
@@ -25,4 +29,11 @@ func main() {
 	router := openapi.NewRouter(DefaultApiController)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
+}
+
+func main() {
+	if region != "" {
+		lambda.Start(functions)
+	}
+	functions()
 }

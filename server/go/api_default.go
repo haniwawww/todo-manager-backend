@@ -19,7 +19,7 @@ import (
 
 // DefaultApiController binds http requests to an api service and writes the service results to the http response
 type DefaultApiController struct {
-	service DefaultApiServicer
+	service      DefaultApiServicer
 	errorHandler ErrorHandler
 }
 
@@ -49,7 +49,7 @@ func NewDefaultApiController(s DefaultApiServicer, opts ...DefaultApiOption) Rou
 
 // Routes returns all of the api route for the DefaultApiController
 func (c *DefaultApiController) Routes() Routes {
-	return Routes{ 
+	return Routes{
 		{
 			"UsersPost",
 			strings.ToUpper("Post"),
@@ -113,7 +113,7 @@ func (c *DefaultApiController) Routes() Routes {
 	}
 }
 
-// UsersPost - 
+// UsersPost -
 func (c *DefaultApiController) UsersPost(w http.ResponseWriter, r *http.Request) {
 	usersForReqParam := UsersForReq{}
 	d := json.NewDecoder(r.Body)
@@ -137,11 +137,11 @@ func (c *DefaultApiController) UsersPost(w http.ResponseWriter, r *http.Request)
 
 }
 
-// UsersUserIdDelete - 
+// UsersUserIdDelete -
 func (c *DefaultApiController) UsersUserIdDelete(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	userIdParam := params["user_id"]
-	
+
 	result, err := c.service.UsersUserIdDelete(r.Context(), userIdParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
@@ -153,11 +153,11 @@ func (c *DefaultApiController) UsersUserIdDelete(w http.ResponseWriter, r *http.
 
 }
 
-// UsersUserIdGet - 
+// UsersUserIdGet -
 func (c *DefaultApiController) UsersUserIdGet(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	userIdParam := params["user_id"]
-	
+
 	result, err := c.service.UsersUserIdGet(r.Context(), userIdParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
@@ -169,11 +169,11 @@ func (c *DefaultApiController) UsersUserIdGet(w http.ResponseWriter, r *http.Req
 
 }
 
-// UsersUserIdPatch - 
+// UsersUserIdPatch -
 func (c *DefaultApiController) UsersUserIdPatch(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	userIdParam := params["user_id"]
-	
+
 	usersForReqParam := UsersForReq{}
 	d := json.NewDecoder(r.Body)
 	d.DisallowUnknownFields()
@@ -196,11 +196,11 @@ func (c *DefaultApiController) UsersUserIdPatch(w http.ResponseWriter, r *http.R
 
 }
 
-// UsersUserIdPost - 
+// UsersUserIdPost -
 func (c *DefaultApiController) UsersUserIdPost(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	userIdParam := params["user_id"]
-	
+
 	inlineObjectParam := InlineObject{}
 	d := json.NewDecoder(r.Body)
 	d.DisallowUnknownFields()
@@ -223,11 +223,11 @@ func (c *DefaultApiController) UsersUserIdPost(w http.ResponseWriter, r *http.Re
 
 }
 
-// UsersUserIdTasksGet - 
+// UsersUserIdTasksGet -
 func (c *DefaultApiController) UsersUserIdTasksGet(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	userIdParam := params["user_id"]
-	
+
 	result, err := c.service.UsersUserIdTasksGet(r.Context(), userIdParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
@@ -239,11 +239,11 @@ func (c *DefaultApiController) UsersUserIdTasksGet(w http.ResponseWriter, r *htt
 
 }
 
-// UsersUserIdTasksPost - 
+// UsersUserIdTasksPost -
 func (c *DefaultApiController) UsersUserIdTasksPost(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	userIdParam := params["user_id"]
-	
+
 	tasksForReqParam := TasksForReq{}
 	d := json.NewDecoder(r.Body)
 	d.DisallowUnknownFields()
@@ -266,13 +266,13 @@ func (c *DefaultApiController) UsersUserIdTasksPost(w http.ResponseWriter, r *ht
 
 }
 
-// UsersUserIdTasksTaskIdDelete - 
+// UsersUserIdTasksTaskIdDelete -
 func (c *DefaultApiController) UsersUserIdTasksTaskIdDelete(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	userIdParam := params["user_id"]
-	
+
 	taskIdParam := params["task_id"]
-	
+
 	result, err := c.service.UsersUserIdTasksTaskIdDelete(r.Context(), userIdParam, taskIdParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
@@ -284,13 +284,13 @@ func (c *DefaultApiController) UsersUserIdTasksTaskIdDelete(w http.ResponseWrite
 
 }
 
-// UsersUserIdTasksTaskIdGet - 
+// UsersUserIdTasksTaskIdGet -
 func (c *DefaultApiController) UsersUserIdTasksTaskIdGet(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	userIdParam := params["user_id"]
-	
+
 	taskIdParam := params["task_id"]
-	
+
 	result, err := c.service.UsersUserIdTasksTaskIdGet(r.Context(), userIdParam, taskIdParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
@@ -302,13 +302,13 @@ func (c *DefaultApiController) UsersUserIdTasksTaskIdGet(w http.ResponseWriter, 
 
 }
 
-// UsersUserIdTasksTaskIdPatch - 
+// UsersUserIdTasksTaskIdPatch -
 func (c *DefaultApiController) UsersUserIdTasksTaskIdPatch(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	userIdParam := params["user_id"]
-	
+
 	taskIdParam := params["task_id"]
-	
+
 	result, err := c.service.UsersUserIdTasksTaskIdPatch(r.Context(), userIdParam, taskIdParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {

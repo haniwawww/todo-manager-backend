@@ -11,8 +11,12 @@ package openapi
 
 import (
 	"context"
+	"github.com/GIT_USER_ID/GIT_REPO_ID/db/queries/tasks"
+	"github.com/GIT_USER_ID/GIT_REPO_ID/db/queries/users"
+	"github.com/GIT_USER_ID/GIT_REPO_ID/entities/task"
+	"github.com/GIT_USER_ID/GIT_REPO_ID/entities/user"
+	"log"
 	"net/http"
-	"errors"
 )
 
 // DefaultApiService is a service that implements the logic for the DefaultApiServicer
@@ -26,18 +30,21 @@ func NewDefaultApiService() DefaultApiServicer {
 	return &DefaultApiService{}
 }
 
-// UsersPost - 
+// UsersPost -
 func (s *DefaultApiService) UsersPost(ctx context.Context, usersForReq UsersForReq) (ImplResponse, error) {
+	log.Printf("UsersPost")
 	// TODO - update UsersPost with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
 	//TODO: Uncomment the next line to return response Response(200, UsersForRes{}) or use other options such as http.Ok ...
 	//return Response(200, UsersForRes{}), nil
 
-	return Response(http.StatusNotImplemented, nil), errors.New("UsersPost method not implemented")
+	users.AddUser(user.GetInstance(user.TypeReqUser(usersForReq)))
+
+	return Response(http.StatusOK, nil), nil
 }
 
-// UsersUserIdDelete - 
+// UsersUserIdDelete -
 func (s *DefaultApiService) UsersUserIdDelete(ctx context.Context, userId string) (ImplResponse, error) {
 	// TODO - update UsersUserIdDelete with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
@@ -45,10 +52,12 @@ func (s *DefaultApiService) UsersUserIdDelete(ctx context.Context, userId string
 	//TODO: Uncomment the next line to return response Response(200, UsersForRes{}) or use other options such as http.Ok ...
 	//return Response(200, UsersForRes{}), nil
 
-	return Response(http.StatusNotImplemented, nil), errors.New("UsersUserIdDelete method not implemented")
+	users.DeleteUser(userId)
+
+	return Response(http.StatusOK, nil), nil
 }
 
-// UsersUserIdGet - 
+// UsersUserIdGet -
 func (s *DefaultApiService) UsersUserIdGet(ctx context.Context, userId string) (ImplResponse, error) {
 	// TODO - update UsersUserIdGet with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
@@ -56,10 +65,12 @@ func (s *DefaultApiService) UsersUserIdGet(ctx context.Context, userId string) (
 	//TODO: Uncomment the next line to return response Response(200, UsersForRes{}) or use other options such as http.Ok ...
 	//return Response(200, UsersForRes{}), nil
 
-	return Response(http.StatusNotImplemented, nil), errors.New("UsersUserIdGet method not implemented")
+	res := users.GetUser(userId)
+
+	return Response(http.StatusOK, res), nil
 }
 
-// UsersUserIdPatch - 
+// UsersUserIdPatch -
 func (s *DefaultApiService) UsersUserIdPatch(ctx context.Context, userId string, usersForReq UsersForReq) (ImplResponse, error) {
 	// TODO - update UsersUserIdPatch with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
@@ -67,10 +78,12 @@ func (s *DefaultApiService) UsersUserIdPatch(ctx context.Context, userId string,
 	//TODO: Uncomment the next line to return response Response(200, UsersForRes{}) or use other options such as http.Ok ...
 	//return Response(200, UsersForRes{}), nil
 
-	return Response(http.StatusNotImplemented, nil), errors.New("UsersUserIdPatch method not implemented")
+	users.UpdateUser(userId, user.GetInstance(user.TypeReqUser(usersForReq)))
+
+	return Response(http.StatusOK, nil), nil
 }
 
-// UsersUserIdPost - 
+// UsersUserIdPost -
 func (s *DefaultApiService) UsersUserIdPost(ctx context.Context, userId string, inlineObject InlineObject) (ImplResponse, error) {
 	// TODO - update UsersUserIdPost with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
@@ -78,10 +91,10 @@ func (s *DefaultApiService) UsersUserIdPost(ctx context.Context, userId string, 
 	//TODO: Uncomment the next line to return response Response(200, UsersForRes{}) or use other options such as http.Ok ...
 	//return Response(200, UsersForRes{}), nil
 
-	return Response(http.StatusNotImplemented, nil), errors.New("UsersUserIdPost method not implemented")
+	return Response(http.StatusOK, nil), nil
 }
 
-// UsersUserIdTasksGet - 
+// UsersUserIdTasksGet -
 func (s *DefaultApiService) UsersUserIdTasksGet(ctx context.Context, userId string) (ImplResponse, error) {
 	// TODO - update UsersUserIdTasksGet with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
@@ -89,10 +102,12 @@ func (s *DefaultApiService) UsersUserIdTasksGet(ctx context.Context, userId stri
 	//TODO: Uncomment the next line to return response Response(200, []TasksForRes{}) or use other options such as http.Ok ...
 	//return Response(200, []TasksForRes{}), nil
 
-	return Response(http.StatusNotImplemented, nil), errors.New("UsersUserIdTasksGet method not implemented")
+	res, err := tasks.GetTasks(userId)
+
+	return Response(http.StatusOK, res), err
 }
 
-// UsersUserIdTasksPost - 
+// UsersUserIdTasksPost -
 func (s *DefaultApiService) UsersUserIdTasksPost(ctx context.Context, userId string, tasksForReq TasksForReq) (ImplResponse, error) {
 	// TODO - update UsersUserIdTasksPost with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
@@ -100,10 +115,12 @@ func (s *DefaultApiService) UsersUserIdTasksPost(ctx context.Context, userId str
 	//TODO: Uncomment the next line to return response Response(200, TasksForRes{}) or use other options such as http.Ok ...
 	//return Response(200, TasksForRes{}), nil
 
-	return Response(http.StatusNotImplemented, nil), errors.New("UsersUserIdTasksPost method not implemented")
+	tasks.AddTask(task.GetInstance(userId, task.TypeReqTask(tasksForReq)))
+
+	return Response(http.StatusOK, nil), nil
 }
 
-// UsersUserIdTasksTaskIdDelete - 
+// UsersUserIdTasksTaskIdDelete -
 func (s *DefaultApiService) UsersUserIdTasksTaskIdDelete(ctx context.Context, userId string, taskId string) (ImplResponse, error) {
 	// TODO - update UsersUserIdTasksTaskIdDelete with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
@@ -111,10 +128,12 @@ func (s *DefaultApiService) UsersUserIdTasksTaskIdDelete(ctx context.Context, us
 	//TODO: Uncomment the next line to return response Response(200, {}) or use other options such as http.Ok ...
 	//return Response(200, nil),nil
 
-	return Response(http.StatusNotImplemented, nil), errors.New("UsersUserIdTasksTaskIdDelete method not implemented")
+	tasks.DeleteTask(userId, taskId)
+
+	return Response(http.StatusOK, nil), nil
 }
 
-// UsersUserIdTasksTaskIdGet - 
+// UsersUserIdTasksTaskIdGet -
 func (s *DefaultApiService) UsersUserIdTasksTaskIdGet(ctx context.Context, userId string, taskId string) (ImplResponse, error) {
 	// TODO - update UsersUserIdTasksTaskIdGet with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
@@ -122,10 +141,12 @@ func (s *DefaultApiService) UsersUserIdTasksTaskIdGet(ctx context.Context, userI
 	//TODO: Uncomment the next line to return response Response(200, TasksForRes{}) or use other options such as http.Ok ...
 	//return Response(200, TasksForRes{}), nil
 
-	return Response(http.StatusNotImplemented, nil), errors.New("UsersUserIdTasksTaskIdGet method not implemented")
+	res := tasks.GetTask(userId, taskId)
+
+	return Response(http.StatusOK, res), nil
 }
 
-// UsersUserIdTasksTaskIdPatch - 
+// UsersUserIdTasksTaskIdPatch -
 func (s *DefaultApiService) UsersUserIdTasksTaskIdPatch(ctx context.Context, userId string, taskId string) (ImplResponse, error) {
 	// TODO - update UsersUserIdTasksTaskIdPatch with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
@@ -133,5 +154,5 @@ func (s *DefaultApiService) UsersUserIdTasksTaskIdPatch(ctx context.Context, use
 	//TODO: Uncomment the next line to return response Response(200, TasksForRes{}) or use other options such as http.Ok ...
 	//return Response(200, TasksForRes{}), nil
 
-	return Response(http.StatusNotImplemented, nil), errors.New("UsersUserIdTasksTaskIdPatch method not implemented")
+	return Response(http.StatusOK, nil), nil
 }
